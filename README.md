@@ -1,5 +1,7 @@
 # customer-management-app
 
+Small CRM app project
+
 ## Project setup
 ```
 npm install
