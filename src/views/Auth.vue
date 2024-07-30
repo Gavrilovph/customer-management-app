@@ -3,13 +3,13 @@
     <app-message></app-message>
     <h1>Войти в систему</h1>
 
-    <div :class="['form-control', {invalid: eError}]">
+    <div :class="['form-control', { invalid: eError }]">
       <label for="email">Email</label>
       <input autocomplete="on" type="email" id="email" v-model="email" @blur="eBlur">
       <small v-if="eError">{{ eError }}</small>
     </div>
 
-    <div :class="['form-control', {invalid: pError}]">
+    <div :class="['form-control', { invalid: pError }]">
       <label for="password">Пароль</label>
       <input type="password" id="password" v-model="password" @blur="pBlur">
       <small v-if="pError">{{ pError }}</small>
@@ -21,14 +21,24 @@
 </template>
 
 <script>
-  import {useLoginForm} from '../use/login-form'
+import { useRoute } from 'vue-router';
+import { useLoginForm } from '../use/login-form'
+import { useStore } from 'vuex';
+import { error } from '../utils/error'
 
-  export default {
-    setup() {
-
-      return {...useLoginForm()}
+export default {
+  setup() {
+    const route = useRoute()
+    const store = useStore()
+    if (route.query.message) {
+      store.dispatch('setMessage', {
+        value: error(route.query.message),
+        type: 'warning'
+      })
     }
+    return { ...useLoginForm() }
   }
+}
 </script>
 
 <style lang="scss" scoped>
