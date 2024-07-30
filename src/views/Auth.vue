@@ -1,10 +1,11 @@
 <template>
   <form class="card" @submit.prevent="onSubmit">
+    <app-message></app-message>
     <h1>Войти в систему</h1>
 
     <div :class="['form-control', {invalid: eError}]">
       <label for="email">Email</label>
-      <input type="email" id="email" v-model="email" @blur="eBlur">
+      <input autocomplete="on" type="email" id="email" v-model="email" @blur="eBlur">
       <small v-if="eError">{{ eError }}</small>
     </div>
 
@@ -24,6 +25,7 @@
 
   export default {
     setup() {
+
       return {...useLoginForm()}
     }
   }
